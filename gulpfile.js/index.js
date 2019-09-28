@@ -5,6 +5,14 @@ require('browser-sync').create(require('../package.json').name);
 
 requireDir('./tasks');
 
+gulp.task('watch', () => {
+  // Templates + static content
+  gulp.watch(
+    ['src/**',],
+    gulp.series('content', 'reload')
+  );
+});
+
 gulp.task(
   'build',
   gulp.series('clean', gulp.parallel('content'))
@@ -15,4 +23,4 @@ gulp.task(
  * task (and its dependencies) organized and easy to find and update.
  */
 
-gulp.task('default', gulp.series('build', gulp.parallel('serve')));
+gulp.task('default', gulp.series('build', gulp.parallel('serve', 'watch')));
