@@ -3,4 +3,16 @@ title: test
 layout: base
 ---
 
-Hello Stick
+<h1>Hello Stick Figures!</h1>
+
+<h2>Unlucky Stick Figures</h2>
+
+<ul>
+  {{#each collections.figures}}
+    <li>
+      <a href="{{url url}}">
+        {{data.title}}
+      </a>
+    </li>
+  {{/each}}
+</ul>

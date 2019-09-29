@@ -14,6 +14,12 @@ module.exports = eleventyConfig => {
   eleventyConfig.addPassthroughCopy('src/stick-figures/**/*.png');
   eleventyConfig.addPassthroughCopy('src/stick-figures/**/*.jpg');
 
+  // Make stick figures available as a collection
+  eleventyConfig.addCollection('figures', function(collection) {
+    console.log(collection.getFilteredByGlob('src/stick-figures/**/index.md'));
+    return collection.getFilteredByGlob('src/stick-figures/**/index.md');
+  });
+
   // Set input and output folders
   return {
     dir: {
