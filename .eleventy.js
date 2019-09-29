@@ -16,7 +16,6 @@ module.exports = eleventyConfig => {
 
   // Make stick figures available as a collection
   eleventyConfig.addCollection('figures', function(collection) {
-    console.log(collection.getFilteredByGlob('src/stick-figures/**/index.md'));
     return collection.getFilteredByGlob('src/stick-figures/**/index.md');
   });
 
