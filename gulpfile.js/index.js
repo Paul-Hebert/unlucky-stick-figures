@@ -11,11 +11,13 @@ gulp.task('watch', () => {
     ['src/**',],
     gulp.series('content', 'reload')
   );
+  // CSS
+  gulp.watch('./**/*.scss', gulp.series('css', 'reload'));
 });
 
 gulp.task(
   'build',
-  gulp.series('clean', gulp.parallel('content'))
+  gulp.series('clean', gulp.parallel('content', 'css'))
 );
 
 /**
