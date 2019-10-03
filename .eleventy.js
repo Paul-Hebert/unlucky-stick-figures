@@ -1,6 +1,8 @@
 const path = require('path');
 const fg = require('fast-glob');
 
+const helpers = require('./helpers');
+
 const layoutsDir = 'src/_includes/layouts/';
 
 module.exports = eleventyConfig => {
@@ -17,6 +19,24 @@ module.exports = eleventyConfig => {
   // Make stick figures available as a collection
   eleventyConfig.addCollection('figures', function(collection) {
     return collection.getFilteredByGlob('src/stick-figures/**/index.md');
+  });
+
+  // Make patterns available as collections
+  eleventyConfig.addCollection('patterns', function(collection) {
+    return collection.getFilteredByGlob('src/patterns/**/index.md');
+  });
+  eleventyConfig.addCollection('patternExamples', function(collection) {
+    return collection.getFilteredByGlob('src/patterns/**/*.hbs');
+  });
+
+  // Register handlebars helpers
+  Object.keys(helpers).forEach(group => {
+    const method = `add${group}`;
+    if (typeof eleventyConfig[method] !== 'function') return;
+
+    Object.keys(helpers[group]).forEach(key => {
+      eleventyConfig[method](key, helpers[group][key]);
+    });
   });
 
   // Set input and output folders

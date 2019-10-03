@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/Paul-Hebert/unlucky-stick-figures/issues"
   },
-  "homepage": "https://github.com/Paul-Hebert/unlucky-stick-figures#readme"
+  "homepage": "https://github.com/Paul-Hebert/unlucky-stick-figures#readme",
+  "dependencies": {
+    "camelcase": "^5.3.1"
+  }
 }
