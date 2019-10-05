@@ -5,7 +5,7 @@ layout: pattern-library
 {{{ content }}}
 
 {{#each collections.patternExamples}}
-  {{#if (rootPathsMatch this.inputPath ../page.inputPath)}}
-    {{~> layouts/pattern-example}}
+  {{#if (isExamplePath this.inputPath ../page.inputPath)}}
+    {{> layouts/pattern-example this}}
   {{/if}}
 {{/each}}

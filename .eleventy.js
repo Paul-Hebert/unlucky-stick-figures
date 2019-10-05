@@ -1,5 +1,7 @@
 const path = require('path');
 const fg = require('fast-glob');
+const fs = require('fs');
+const Handlebars = require('handlebars');
 
 const helpers = require('./helpers');
 
@@ -26,7 +28,7 @@ module.exports = eleventyConfig => {
     return collection.getFilteredByGlob('src/patterns/**/index.md');
   });
   eleventyConfig.addCollection('patternExamples', function(collection) {
-    return collection.getFilteredByGlob('src/patterns/**/*.hbs');
+    return collection.getFilteredByGlob('src/patterns/**/examples/**/*.hbs');
   });
 
   // Register handlebars helpers
@@ -37,6 +39,15 @@ module.exports = eleventyConfig => {
     Object.keys(helpers[group]).forEach(key => {
       eleventyConfig[method](key, helpers[group][key]);
     });
+  });
+
+  // Register handlebars partials
+  fg.sync('src/patterns/**/partials/**/*.hbs').forEach(file => {
+    const partial = fs.readFileSync(file, 'utf8');
+    const pathSegments = file.split('/');
+    let key = pathSegments[pathSegments.length - 1];
+    key = key.replace(path.extname(file), '');
+    Handlebars.registerPartial(key, partial);
   });
 
   // Set input and output folders
